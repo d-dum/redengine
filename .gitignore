@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/redengine
+redengine.so
+redengine.dylib
+redengine.dll
+redengine.a
+redengine.lib
+redengine-test-*
+*.exe
+*.o
+*.obj
+*.lst

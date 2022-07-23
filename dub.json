@@ -1,0 +1,12 @@
+{
+	"authors": [
+		"vbl"
+	],
+	"copyright": "Copyright © 2022, vbl",
+	"dependencies": {
+		"glfw-d": "~>1.1.0"
+	},
+	"description": "Remake of dengine",
+	"license": "MIT",
+	"name": "redengine"
+}
