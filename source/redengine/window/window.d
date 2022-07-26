@@ -8,6 +8,7 @@ private:
     int height;
     string title;
     GLFWwindow* window;
+    void function() updateCallback = null;
 
 public:
     this(int width, int height, string name){
@@ -29,6 +30,11 @@ public:
         glfwSetInputMode(this.window, GLFW_STICKY_KEYS, GLFW_TRUE);
     }
 
+    this(int width, int height, string name, void function() updateCallback){
+        this.updateCallback = updateCallback;
+        this(width, height, name);
+    }
+
     ~this(){
         glfwTerminate();
     }
@@ -38,6 +44,8 @@ public:
     }
 
     void update(){
+        if(this.updateCallback != null)
+            this.updateCallback();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
