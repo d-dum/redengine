@@ -1,6 +1,7 @@
 module redengine.window.window;
 
 import glfw3.api;
+import bindbc.opengl;
 
 class Window {
 private:
@@ -28,6 +29,17 @@ public:
             throw new Exception("Failed to create window");
         glfwMakeContextCurrent(this.window);
         glfwSetInputMode(this.window, GLFW_STICKY_KEYS, GLFW_TRUE);
+
+        const GLSupport retVal = loadOpenGL();
+        if (retVal == GLSupport.badLibrary || retVal == GLSupport.noLibrary)
+            throw new Exception("GLFW not found");
+        
+        glViewport(0, 0, width, height);
+
+        // Enable depth test
+        glEnable(GL_DEPTH_TEST);
+        // Accept fragment if it closer to the camera than the former one
+        glDepthFunc(GL_LESS);
     }
 
     this(int width, int height, string name, void function() updateCallback){

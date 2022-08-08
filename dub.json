@@ -4,6 +4,7 @@
 	],
 	"copyright": "Copyright © 2022, vbl",
 	"dependencies": {
+		"bindbc-opengl": "~>1.0.2",
 		"glfw-d": "~>1.1.0"
 	},
 	"description": "Remake of dengine",
