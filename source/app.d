@@ -16,7 +16,7 @@ void main()
 	while(!window.isCloseRequested()){
 
 		program.start();
-
+			
 		program.stop();
 		
 		window.update();

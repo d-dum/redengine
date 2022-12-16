@@ -1,6 +1,7 @@
 module redengine.interfaces.iprogram;
 
-interface IProgram {
+interface IProgram 
+{
 public:
     uint getProgram();
     void start();
