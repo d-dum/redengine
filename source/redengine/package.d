@@ -10,4 +10,6 @@ public {
     import redengine.misc.vertex;
     import redengine.misc.quad;
     import redengine.interfaces.irenderable;
+    import redengine.interfaces.irenderer;
+    import redengine.core.renderer;
 }

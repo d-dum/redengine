@@ -12,7 +12,7 @@ class MeshObject : IRenderable
 private:
 	// Data needed for rendering
 	GLuint vaoId;
-	ulong vertexCount;
+	GLint vertexCount;
 	bool haveTexture = false;
 	GLuint textureId;
 
@@ -24,7 +24,7 @@ private:
     void initialize(Vertex[] vertices, ushort[] indices)
     {
 		// Upload data to gpu
-		this.vertexCount = indices.length;
+		this.vertexCount = cast(GLint)indices.length;
 		glGenBuffers(1, &vboID);
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
 		glBufferData(GL_ARRAY_BUFFER, Vertex.sizeof * vertices.length, vertices.ptr, GL_STATIC_DRAW);
@@ -79,7 +79,7 @@ public:
 		return this.textureId;
 	}
 	
-	ulong getVertexCount()
+	GLint getVertexCount()
 	{
 		return this.vertexCount;
 	}

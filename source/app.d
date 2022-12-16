@@ -14,11 +14,12 @@ void main()
 	auto program = new ShaderProgram(shaders.ptr, shaders.length);
 
 	MeshObject mesh = new MeshObject(cubeVertices(), cubeIndices());
+	Renderer renderer = new Renderer(0.0f, 0.0f, 0.0f);
 
 	while(!window.isCloseRequested()){
 
 		program.start();
-
+			renderer.render(mesh);
 		program.stop();
 		
 		window.update();
