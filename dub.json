@@ -4,10 +4,16 @@
 	],
 	"copyright": "Copyright © 2022, vbl",
 	"dependencies": {
-		"bindbc-opengl": "~>1.0.2",
+		"bindbc-opengl": "~>1.0.3",
 		"glfw-d": "~>1.1.0"
 	},
 	"description": "Remake of dengine",
 	"license": "MIT",
-	"name": "redengine"
+	"name": "redengine",
+	"subConfigurations": {
+    	"bindbc-opengl": "dynamicBC"
+	},
+	"versions": [
+		"GL_41", "GL_AllowDeprecated", "GL_ARB"
+	]
 }

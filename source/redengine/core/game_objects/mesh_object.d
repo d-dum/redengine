@@ -11,35 +11,70 @@ class MeshObject : IRenderable
 {
 private:
 	// Data needed for rendering
-	uint vaoId;
+	GLuint vaoId;
 	ulong vertexCount;
 	bool haveTexture = false;
-	uint textureId;
+	GLuint textureId;
 
 	// Data not needed for rendering, need it for cleanup
-    uint vboID;
-    uint eboID;
-    uint tboID;
+    GLuint vboID;
+    GLuint eboID;
+    GLuint tboID;
+
+    void initialize(Vertex[] vertices, ushort[] indices)
+    {
+		// Upload data to gpu
+		this.vertexCount = indices.length;
+		glGenBuffers(1, &vboID);
+		glBindBuffer(GL_ARRAY_BUFFER, vboID);
+		glBufferData(GL_ARRAY_BUFFER, Vertex.sizeof * vertices.length, vertices.ptr, GL_STATIC_DRAW);
+
+		// Describe layout of data for the shader program
+		glGenVertexArrays(1, &vaoId);
+		glBindVertexArray(vaoId);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(
+            /*location*/ 0, /*num elements*/ 3, /*base type*/ GL_FLOAT, /*normalized*/ GL_FALSE,
+            Vertex.sizeof, cast(void*) Vertex.positions.offsetof
+        );
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(
+            /*location*/ 1, /*num elements*/ 2, /*base type*/ GL_FLOAT, /*normalized*/ GL_FALSE,
+            Vertex.sizeof, cast(void*) Vertex.uv.offsetof
+        );
+
+        glGenBuffers(1, &eboID);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, ushort.sizeof * indices.length, indices.ptr, GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
+    }
 
 public:
 
-	this()
+	this(Vertex[] vertices, ushort[] indices)
 	{
-
+		this.initialize(vertices, indices);
 	}
 
 	~this()
 	{
-		
+		glDeleteVertexArrays(1, &this.vaoId);
+		glDeleteBuffers(1, &this.vboID);
+		glDeleteBuffers(1, &this.eboID);
 	}
 	
 
-	uint getVAOId()
+	GLuint getVAOId()
 	{
 		return this.vaoId;		
 	}
 	
-	uint getTextureId()
+	GLuint getTextureId()
 	{
 		return this.textureId;
 	}

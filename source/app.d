@@ -13,10 +13,12 @@ void main()
 	shaders[1] = frag;
 	auto program = new ShaderProgram(shaders.ptr, shaders.length);
 
+	MeshObject mesh = new MeshObject(cubeVertices(), cubeIndices());
+
 	while(!window.isCloseRequested()){
 
 		program.start();
-			
+
 		program.stop();
 		
 		window.update();
